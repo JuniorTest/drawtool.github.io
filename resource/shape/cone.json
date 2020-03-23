@@ -1,0 +1,82 @@
+{
+    "points": [
+        {
+            "pointName": "A",
+            "coordinates": {
+                "x": "0",
+                "y": "-2",
+                "z": "3"
+            }
+        },
+        {
+            "pointName": "B",
+            "coordinates": {
+                "x": "-3",
+                "y": "-2",
+                "z": "0"
+            }
+        },
+        {
+            "pointName": "C",
+            "coordinates": {
+                "x": "3",
+                "y": "-2",
+                "z": "0"
+            }
+        },
+        {
+            "pointName": "A'",
+            "coordinates": {
+                "x": "0",
+                "y": "2",
+                "z": "3"
+            }
+        },
+        {
+            "pointName": "B'",
+            "coordinates": {
+                "x": "-3",
+                "y": "2",
+                "z": "0"
+            }
+        },
+        {
+            "pointName": "C'",
+            "coordinates": {
+                "x": "3",
+                "y": "2",
+                "z": "0"
+            }
+        }
+    ],
+    "lines": [
+        {
+            "name": "A'B'"
+        },
+        {
+            "name": "A'C'"
+        },
+        {
+            "name": "B'C'"
+        },
+        {
+            "name": "AA'"
+        },
+        {
+            "name": "CC'"
+        },
+        {
+            "name": "BB'"
+        }
+    ],
+    "faces": [
+        {
+            "faceName": "ABC"
+        },
+        {
+            "faceName": "A'B'C'"
+        }
+    ],
+    "font": "./resource/fonts/gentilis_regular.typeface.json",
+    "texture": "./resource/disc.png"
+}

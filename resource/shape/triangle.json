@@ -1,0 +1,54 @@
+{
+    "points": [
+        {
+            "pointName": "A",
+            "coordinates": {
+                "x": "0",
+                "y": "0",
+                "z": "5"
+            }
+        },
+        {
+            "pointName": "B",
+            "coordinates": {
+                "x": "5",
+                "y": "0",
+                "z": "0"
+            }
+        },
+        {
+            "pointName": "C",
+            "coordinates": {
+                "x": "0",
+                "y": "0",
+                "z": "0"
+            }
+        },
+        {
+            "pointName": "S",
+            "coordinates": {
+                "x": "0",
+                "y": "6",
+                "z": "0"
+            }
+        }
+    ],
+    "lines": [
+        {
+            "name": "SA"
+        },
+        {
+            "name": "SB"
+        },
+        {
+            "name": "SC"
+        }
+    ],
+    "faces": [
+        {
+            "faceName": "ABC"
+        }
+    ],
+    "font": "./resource/fonts/gentilis_regular.typeface.json",
+    "texture": "./resource/disc.png"
+}

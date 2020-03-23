@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Page</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <script src="./libs/bootstrap/js/jquery-3.4.1.min.js"></script>
+
+    <script src="./libs/three.js"></script>
+    <script src="./libs/dat.gui.js"></script>
+    <script src="./libs/OrbitControls.js"></script>
+
+    <script src="./js/draw.module.js"></script>
+
+    <script>
+
+        var font = './resource/fonts/gentilis_regular.typeface.json';
+        var texture = './resource/disc.png';
+
+        var draw = new DrawTools(canvas);
+
+        var init = function (color) {
+            draw.init({
+                objCamera: {
+                    position: { x: 10, y: 10, z: 10 },
+                    fov: 45,
+                    aspect: 2,
+                    near: 0.1,
+                    far: 100
+                },
+                color: color,
+                intensity: 2,
+                orbitPos: { x: 0, y: 0, z: 0 }
+            });
+        };
+
+        // add new point
+        var add_new_point = function (name, x, y, z) {
+            draw.drawPoint(name, font, texture, x, y, z, {
+                color: 0x698af1,
+                size: 1,
+                alphaTest: 1
+            }, {
+                color: 0x698af1,
+                size: 0.5,
+                height: 0
+            });
+        };
+
+        // add new line
+        var add_new_line = function (line, dashed, solid) {
+            if (dashed) {
+                draw.drawLine(line, 0);
+            } else if (solid) {
+                draw.drawLine(line, 1);
+            } else {
+                draw.drawLine(line, 1);
+            }
+        };
+
+        // add new face 
+        var add_new_face = function (face) {
+            draw.drawFace(face);
+        };
+
+        // add and remove axes helper
+        var add_axes_helper = function () {
+            draw.addAxes(10);
+        };
+
+        var remove_axes_helper = function () {
+            draw.removeAxes();
+        };
+
+        // reset all
+        var reset = function () {
+            draw.reset();
+        };
+
+        // return
+        var getAllPoint = function () {
+            return draw.getPointList();
+        };
+
+        var getAllLine = function () {
+            return draw.getLineList();
+        };
+
+        var getAllFace = function (){
+            return draw.getFaceList();
+        };
+
+        // remove 
+        var remove = function (name, type, code) {
+            draw.delete(name, type, code);
+        };
+
+        // load shape json
+        var drawShape = function (shapeObj) {
+            draw.drawShape(shapeObj);
+        };
+
+        var saveShape = function () {
+            return draw.saveShape(font, texture);
+        };
+
+    </script>
+
+</body>
+
+</html>

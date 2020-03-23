@@ -1,0 +1,112 @@
+{
+    "points": [
+        {
+            "pointName": "A",
+            "coordinates": {
+                "x": "3",
+                "y": "-3",
+                "z": "3"
+            }
+        },
+        {
+            "pointName": "B",
+            "coordinates": {
+                "x": "-3",
+                "y": "-3",
+                "z": "3"
+            }
+        },
+        {
+            "pointName": "C",
+            "coordinates": {
+                "x": "-3",
+                "y": "-3",
+                "z": "-3"
+            }
+        },
+        {
+            "pointName": "D",
+            "coordinates": {
+                "x": "3",
+                "y": "-3",
+                "z": "-3"
+            }
+        },
+        {
+            "pointName": "A'",
+            "coordinates": {
+                "x": "3",
+                "y": "3",
+                "z": "3"
+            }
+        },
+        {
+            "pointName": "B'",
+            "coordinates": {
+                "x": "-3",
+                "y": "3",
+                "z": "3"
+            }
+        },
+        {
+            "pointName": "C'",
+            "coordinates": {
+                "x": "-3",
+                "y": "3",
+                "z": "-3"
+            }
+        },
+        {
+            "pointName": "D'",
+            "coordinates": {
+                "x": "3",
+                "y": "3",
+                "z": "-3"
+            }
+        }
+    ],
+    "lines": [
+        {
+            "name": "AB"
+        },
+        {
+            "name": "BC"
+        },
+        {
+            "name": "CD"
+        },
+        {
+            "name": "DA"
+        },
+        {
+            "name": "A'D'"
+        },
+        {
+            "name": "D'C'"
+        },
+        {
+            "name": "C'D'"
+        },
+        {
+            "name": "C'B'"
+        },
+        {
+            "name": "A'B'"
+        },
+        {
+            "name": "AA'"
+        },
+        {
+            "name": "DD'"
+        },
+        {
+            "name": "CC'"
+        },
+        {
+            "name": "BB'"
+        }
+    ],
+    "faces": [],
+    "font": "./resource/fonts/gentilis_regular.typeface.json",
+    "texture": "./resource/disc.png"
+}

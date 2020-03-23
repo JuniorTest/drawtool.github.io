@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Frame</title>
+
+    <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.css">
+
+    <style>
+        iframe {
+            display: block;
+            margin: 5px auto;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <iframe src="page.html" frameborder="1" id="iframe"></iframe>
+            </div>
+
+            <div class="col-md-4">
+                <button id="pyramid" class="btn btn-primary">Pyramid</button>
+                <button id="triangle" class="btn btn-warning">Triangle</button>
+                <button id="box" class="btn btn-secondary">Box</button>
+                <button id="cone" class="btn btn-success">Cone</button>
+                <br>
+                <button id="save" class="btn btn-success">Save JSON</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card m-0" style="width: 300px; float: left;">
+                            <div class="card-header">Add New Point</div>
+                            <div class="card-body">
+                                Name: <input type="text" id="name"> <br>
+                                X: <input type="text" id="x"> <br>
+                                Y: <input type="text" id="y"> <br>
+                                Z: <input type="text" id="z"> <br>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" onclick="" id="addPoint">Add New Point</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card" style="width: 300px; float: left;">
+                            <div class="card-header">Add New Line</div>
+                            <div class="card-body">
+                                <input type="radio" name="mode" id="dashed">
+                                <label for="dashed">Dashed Line</label><br>
+
+                                <input type="radio" name="mode" id="solid">
+                                <label for="solid">Solid Line</label><br>
+
+                                Line Name: <input type="text" id="lineName"> <br>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" id="addLine">Add New Line</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card" style="width: 300px; float: left;">
+                            <div class="card-header">Add New Face</div>
+                            <div class="card-body">
+                                Face Name: <input type="text" id="faceName"> <br>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" id="addFace">Add New Face</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card" style="width: 300px; float: left;">
+                            <div class="card-header">Helper</div>
+                            <div class="card-body">
+                                Axes Helper: <input type="checkbox" id="axes" name="axes"> <br>
+                                <button id="reset" class="btn btn-warning">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="point-tab" data-toggle="tab" href="#points" role="tab"
+                    aria-controls="points" aria-selected="true">Points</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="line-tab" data-toggle="tab" href="#lines" role="tab" aria-controls="lines"
+                    aria-selected="false">Lines</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="face-tab" data-toggle="tab" href="#faces" role="tab" aria-controls="faces"
+                    aria-selected="false">Faces</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="points" role="tabpanel" aria-labelledby="point-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="listPoint">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="lines" role="tabpanel" aria-labelledby="line-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="listLine">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="faces" role="tabpanel" aria-labelledby="face-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="listFace">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="./libs/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="./libs/bootstrap/js/bootstrap.js"></script>
+
+    <!-- <script src="./libs/three.js"></script>
+    <script src="./libs/dat.gui.js"></script>
+    <script src="./libs/OrbitControls.js"></script>
+
+    <script src="./js/draw.module.js"></script> -->
+
+    <script>
+
+        $("#iframe").on('load', function () {
+            let iframe = this;
+
+            // init window
+            iframe.contentWindow.init(0xfafafa);
+
+            // add point
+            $("#addPoint").on('click', function () {
+                var name = document.getElementById("name").value;
+                var x = document.getElementById("x").value;
+                var y = document.getElementById("y").value;
+                var z = document.getElementById("z").value;
+                iframe.contentWindow.add_new_point(name, x, y, z);
+            });
+
+            // add line
+            $("#addLine").on('click', function () {
+                var line = document.getElementById("lineName").value;
+                var dashed = document.getElementById("dashed").checked;
+                var solid = document.getElementById("solid").checked;
+                iframe.contentWindow.add_new_line(line, dashed, solid);
+            });
+
+            // add face
+            $("#addFace").on('click', function () {
+                var face = document.getElementById("faceName").value;
+                iframe.contentWindow.add_new_face(face);
+            });
+
+            // show,hide axes
+            $("#axes").on('change', function () {
+                var check = document.getElementById("axes").checked;
+                // console.log(check);
+                if (check) {
+                    iframe.contentWindow.add_axes_helper();
+                } else {
+                    iframe.contentWindow.remove_axes_helper();
+                }
+            });
+
+            // reset frame
+            $("#reset").on('click', function () {
+                iframe.contentWindow.reset();
+            });
+
+            function remove(name, type, code) {
+                iframe.contentWindow.remove(name, type, code);
+            }
+
+            // load list point
+            $("#point-tab").on('click', function () {
+                $("#listPoint").empty();
+                var html = "";
+                var points = iframe.contentWindow.getAllPoint();
+
+                //console.log(points);
+
+                points.forEach(point => {
+                    html += '<tr>'
+                        + '<td>' + point.pointName + '(' + point.coordinates.x + ',' + point.coordinates.y + ',' + point.coordinates.z + ')</td>'
+                        + '<td><button class="btn btn-danger" onclick="remove(' + "'" + point.pointName + "'" + ',0,' + point.code + ')">Delete</button></td>'
+                        + '</tr>';
+                });
+
+                $("#listPoint").html(html);
+            });
+
+            $("#line-tab").on('click', function () {
+                $("#listLine").empty();
+                var html = "";
+                var lines = iframe.contentWindow.getAllLine();
+                //console.log(lines);
+
+                lines.forEach(line => {
+                    html += '<tr>'
+                        + '<td>' + line.name + '</td>'
+                        + '<td><button class="btn btn-danger">Delete</button></td>'
+                        + '</tr>';
+                });
+
+                $("#listLine").html(html);
+            });
+
+            $("#face-tab").on('click', function () {
+                $("#listFace").empty();
+                var html = "";
+                var faces = iframe.contentWindow.getAllFace();
+                //console.log(faces);
+
+                faces.forEach(face => {
+                    html += '<tr>'
+                        + '<td>' + face.faceName + '</td>'
+                        + '<td><button class="btn btn-danger">Delete</button></td>'
+                        + '</tr>';
+                });
+
+                $("#listFace").html(html);
+            });
+
+            function encode(s) {
+                var out = [];
+                for (var i = 0; i < s.length; i++) {
+                    out[i] = s.charCodeAt(i);
+                }
+                return new Uint8Array(out);
+            }
+
+            $("#save").on('click', function () {
+                var data = encode(JSON.stringify(iframe.contentWindow.saveShape(), null, 4));
+
+                var blob = new Blob([data], {
+                    type: 'application/octet-stream'
+                });
+
+                url = URL.createObjectURL(blob);
+                var link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'example.json');
+
+                var event = document.createEvent('MouseEvents');
+                event.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+                link.dispatchEvent(event);
+            });
+
+            function readFile(file, callback) {
+                var rawFile = new XMLHttpRequest();
+                rawFile.overrideMimeType("application/json");
+                rawFile.open("GET", file, true);
+                rawFile.onreadystatechange = function () {
+                    if (rawFile.readyState === 4 && rawFile.status == "200") {
+                        callback(rawFile.responseText);
+                    }
+                }
+                rawFile.send(null);
+            }
+
+            $("#pyramid").on('click', function () {
+
+                iframe.contentWindow.reset();
+
+                readFile("./resource/shape/pyramid.json", function (text) {
+                    var data = JSON.parse(text);
+                    console.log(data);
+                    iframe.contentWindow.drawShape({
+                        points: data.points,
+                        lines: data.lines,
+                        faces: data.faces,
+                        font: data.font,
+                        texture: data.texture,
+                        pointObj: {
+                            color: 0x698af1,
+                            size: 1,
+                            alphaTest: 1
+                        },
+                        labelObj: {
+                            color: 0x698af1,
+                            size: 0.5,
+                            height: 0
+                        }
+                    });
+                });
+            });
+
+            $("#triangle").on('click', function () {
+
+                iframe.contentWindow.reset();
+
+                readFile("./resource/shape/triangle.json", function (text) {
+                    var data = JSON.parse(text);
+                    console.log(data);
+                    iframe.contentWindow.drawShape({
+                        points: data.points,
+                        lines: data.lines,
+                        faces: data.faces,
+                        font: data.font,
+                        texture: data.texture,
+                        pointObj: {
+                            color: 0x698af1,
+                            size: 1,
+                            alphaTest: 1
+                        },
+                        labelObj: {
+                            color: 0x698af1,
+                            size: 0.5,
+                            height: 0
+                        }
+                    });
+                });
+            });
+
+            $("#box").on('click', function () {
+
+                iframe.contentWindow.reset();
+
+                readFile("./resource/shape/box.json", function (text) {
+                    var data = JSON.parse(text);
+                    console.log(data);
+                    iframe.contentWindow.drawShape({
+                        points: data.points,
+                        lines: data.lines,
+                        faces: data.faces,
+                        font: data.font,
+                        texture: data.texture,
+                        pointObj: {
+                            color: 0x698af1,
+                            size: 1,
+                            alphaTest: 1
+                        },
+                        labelObj: {
+                            color: 0x698af1,
+                            size: 0.5,
+                            height: 0
+                        }
+                    });
+                });
+            });
+
+            $("#cone").on('click', function () {
+
+                iframe.contentWindow.reset();
+
+                readFile("./resource/shape/cone.json", function (text) {
+                    var data = JSON.parse(text);
+                    console.log(data);
+                    iframe.contentWindow.drawShape({
+                        points: data.points,
+                        lines: data.lines,
+                        faces: data.faces,
+                        font: data.font,
+                        texture: data.texture,
+                        pointObj: {
+                            color: 0x698af1,
+                            size: 1,
+                            alphaTest: 1
+                        },
+                        labelObj: {
+                            color: 0x698af1,
+                            size: 0.5,
+                            height: 0
+                        }
+                    });
+                });
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
